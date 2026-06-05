@@ -5,96 +5,619 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Dramatic Club</title>
+  <title>Dramatic</title>
+  <meta name="description" content="Dramatic — Camisetas para quienes convierten el drama en estilo." />
 
   <style>
+    :root {
+      --bg: #040504;
+      --panel: rgba(7, 9, 8, 0.98);
+
+      --text: #e8dfd1;
+      --text-soft: #aaa294;
+
+      --gold: #aa8f5b;
+      --gold-soft: rgba(170, 143, 91, 0.18);
+
+      --emerald: #7f9a8d;
+      --emerald-soft: rgba(127, 154, 141, 0.10);
+
+      --line: rgba(170, 143, 91, 0.20);
+      --line-soft: rgba(170, 143, 91, 0.12);
+
+      --cream: #d3c5af;
+      --cream-dark: #b8a68d;
+      --black: #070807;
+    }
+
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(127, 154, 141, 0.08), transparent 28%),
+        radial-gradient(circle at 88% 82%, rgba(170, 143, 91, 0.07), transparent 30%),
+        linear-gradient(135deg, #020302 0%, #0a0d0b 52%, #020302 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 24px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
-    .container {
+    .page {
       width: 100%;
-      max-width: 420px;
+      max-width: 1160px;
+      min-height: 780px;
+      display: grid;
+      grid-template-columns: 1.03fr 0.97fr;
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 24%),
+        var(--panel);
+      box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.70),
+        0 0 70px rgba(170, 143, 91, 0.035);
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px solid var(--line-soft);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .left,
+    .right {
+      position: relative;
+      z-index: 1;
+    }
+
+    .left {
+      padding: 42px 34px 46px;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
 
-    .logo {
-      width: 110px;
-      height: 110px;
-      border-radius: 24px;
+    .top-row {
+      position: absolute;
+      top: 30px;
+      left: 38px;
+      right: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .badge {
+      padding: 7px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(127, 154, 141, 0.24);
+      background: rgba(127, 154, 141, 0.055);
+      color: #d7ded9;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1.15px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .art-wrap {
+      width: 100%;
+      max-width: 585px;
+      margin-top: 48px;
+      margin-bottom: 38px;
+      padding: 9px;
+      border-radius: 13px;
+      border: 1px solid rgba(170, 143, 91, 0.31);
+      background:
+        linear-gradient(135deg, rgba(170, 143, 91, 0.08), transparent 38%),
+        rgba(0, 0, 0, 0.22);
+      box-shadow:
+        0 26px 62px rgba(0, 0, 0, 0.38),
+        0 0 42px rgba(170, 143, 91, 0.035);
+    }
+
+    .art-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      border: 1px solid rgba(170, 143, 91, 0.44);
+      background: #080908;
+    }
+
+    .art-card::before,
+    .art-card::after {
+      content: "";
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-style: solid;
+      border-color: rgba(170, 143, 91, 0.88);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .art-card::before {
+      top: 12px;
+      left: 12px;
+      border-width: 2px 0 0 2px;
+    }
+
+    .art-card::after {
+      right: 12px;
+      bottom: 12px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
       object-fit: cover;
-      margin-bottom: 18px;
-      background: #222;
+      object-position: center;
+      transform: scale(1.065);
+      transform-origin: center;
     }
 
-    h1 {
+    .hero-copy {
+      max-width: 500px;
+    }
+
+    .hero-copy h1 {
       margin: 0;
-      font-size: 32px;
-      letter-spacing: 1px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 4.7vw, 62px);
+      line-height: 0.96;
+      font-weight: 500;
+      letter-spacing: -0.7px;
+      color: var(--text);
+      text-shadow: none;
+      -webkit-text-stroke: 0;
     }
 
-    p {
-      color: #cfcfcf;
-      margin: 10px 0 28px;
-      font-size: 15px;
-      line-height: 1.5;
+    .hero-copy h1 span {
+      display: block;
+      color: var(--emerald);
+    }
+
+    .ornament {
+      width: 188px;
+      margin: 24px auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0.86;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .ornament::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .description {
+      margin: 0 auto;
+      max-width: 440px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-soft);
+      opacity: 0.88;
+    }
+
+    .right {
+      padding: 70px 66px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top right, rgba(127, 154, 141, 0.04), transparent 36%),
+        rgba(4, 5, 5, 0.28);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 4.5px;
+      text-transform: uppercase;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 44px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.85;
+    }
+
+    .right h2 {
+      margin: 0 0 42px;
+      max-width: 330px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 4.1vw, 56px);
+      line-height: 0.95;
+      font-weight: 500;
+      letter-spacing: -1px;
+      color: var(--text);
+      text-shadow: none;
+      -webkit-text-stroke: 0;
+      filter: none;
+    }
+
+    .links {
+      display: grid;
+      gap: 18px;
     }
 
     .link {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      margin: 12px 0;
-      border: 1px solid #444;
-      border-radius: 16px;
-      color: #f5f5f5;
+      min-height: 80px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      align-items: center;
+      gap: 20px;
       text-decoration: none;
-      font-weight: bold;
-      background: #1b1b1b;
-      transition: 0.2s;
+      color: var(--text);
+      border-radius: 13px;
+      border: 1px solid rgba(170, 143, 91, 0.20);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.014), transparent),
+        rgba(6, 8, 7, 0.78);
+      transition: 0.18s ease;
     }
 
     .link:hover {
-      transform: scale(1.02);
-      background: #252525;
+      transform: translateY(-2px);
+      border-color: rgba(170, 143, 91, 0.48);
+      background:
+        linear-gradient(135deg, rgba(170, 143, 91, 0.055), transparent),
+        rgba(11, 13, 12, 0.98);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .link.primary {
+      background: linear-gradient(135deg, var(--cream), var(--cream-dark));
+      color: var(--black);
+      border-color: rgba(255, 255, 255, 0.30);
+    }
+
+    .number {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--emerald);
+      border: 1px solid rgba(127, 154, 141, 0.22);
+      background: rgba(127, 154, 141, 0.045);
+    }
+
+    .primary .number {
+      color: #587668;
+      background: rgba(127, 154, 141, 0.10);
+    }
+
+    .link-content strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 600;
+      color: inherit;
+      text-shadow: none;
+      -webkit-text-stroke: 0;
+    }
+
+    .link-content small {
+      display: block;
+      font-size: 13px;
+      line-height: 1.2;
+      color: var(--emerald);
+    }
+
+    .primary .link-content small {
+      color: #5c776b;
+    }
+
+    .arrow {
+      font-size: 25px;
+      color: var(--gold);
+      opacity: 0.82;
     }
 
     .footer {
-      margin-top: 28px;
-      font-size: 12px;
-      color: #777;
+      margin-top: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--gold);
+      font-size: 16px;
+      opacity: 0.78;
+    }
+
+    .footer::before,
+    .footer::after {
+      content: "";
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+      opacity: 0.65;
+    }
+
+    .footer::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    @media (max-width: 920px) {
+      body {
+        padding: 16px;
+        align-items: flex-start;
+      }
+
+      .page {
+        max-width: 620px;
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .left {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 92px 24px 38px;
+      }
+
+      .top-row {
+        top: 26px;
+        left: 22px;
+        right: 22px;
+      }
+
+      .art-wrap {
+        max-width: 520px;
+        margin-top: 0;
+      }
+
+      .hero-copy h1 {
+        font-size: 44px;
+      }
+
+      .right {
+        padding: 44px 24px 38px;
+      }
+
+      .section-label {
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .right h2 {
+        max-width: none;
+        text-align: center;
+        font-size: 46px;
+        margin-bottom: 32px;
+      }
+
+      .link {
+        min-height: 78px;
+        grid-template-columns: 48px 1fr auto;
+        padding: 0 20px;
+      }
+
+      .number {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .link-content strong {
+        font-size: 21px;
+      }
+
+      .link-content small {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .left {
+        padding-top: 118px;
+      }
+
+      .brand {
+        letter-spacing: 5px;
+      }
+
+      .badge {
+        padding: 8px 14px;
+      }
+
+      .art-wrap {
+        max-width: 100%;
+        padding: 8px;
+      }
+
+      .art-card::before,
+      .art-card::after {
+        width: 48px;
+        height: 48px;
+      }
+
+      .hero-copy h1 {
+        font-size: 38px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .right h2 {
+        font-size: 38px;
+      }
+
+      .link {
+        min-height: 74px;
+        grid-template-columns: 38px 1fr auto;
+        gap: 14px;
+        padding: 0 16px;
+      }
+
+      .number {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+
+      .link-content strong {
+        font-size: 19px;
+      }
+
+      .link-content small {
+        font-size: 12px;
+      }
+
+      .footer::before,
+      .footer::after {
+        width: 42px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="container">
-    <img class="logo" src="logo.png" alt="Dramatic Club" />
+  <main class="page">
+    <section class="left">
+      <div class="top-row">
+        <div class="brand">Dramatic</div>
+        <div class="badge">Official Links</div>
+      </div>
 
-    <h1>Dramatic Club</h1>
-    <h3>Wear the mask. Join the club</h3>
-    <p>Tienda de ropa para quienes vivimos el drama con estilo.</p>
+      <div class="art-wrap">
+        <div class="art-card">
+          <img src="logo.png" alt="Dramatic">
+        </div>
+      </div>
 
-    <a class="link" href="https://www.instagram.com/club.dramatic" target="_blank">Instagram</a>
-    <a class="link" href="https://www.tiktok.com/@club.dramatic" target="_blank">TikTok</a>
-    <a class="link" href="https://wa.me/573006001545" target="_blank">WhatsApp</a>
-    <a class="link" href="#" target="_blank">Catálogo</a>
+      <div class="hero-copy">
+        <h1>
+          Wear the mask.
+          <span>Join the club.</span>
+        </h1>
 
-    <div class="footer">
-      © Dramatic Club
-    </div>
+        <div class="ornament">
+          <div class="diamond"></div>
+        </div>
+
+        <p class="description">
+          Camisetas para quienes convierten el drama en estilo.
+        </p>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="section-label">Join the club</div>
+
+      <h2>Encuéntranos aquí</h2>
+
+      <div class="links">
+        <a class="link primary" href="https://wa.me/573006001545" target="_blank" rel="noopener noreferrer">
+          <div class="number">01</div>
+          <div class="link-content">
+            <strong>WhatsApp</strong>
+            <small>Compra directa</small>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link" href="https://www.instagram.com/club.dramatic" target="_blank" rel="noopener noreferrer">
+          <div class="number">02</div>
+          <div class="link-content">
+            <strong>Instagram</strong>
+            <small>Drops y novedades</small>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link" href="https://www.tiktok.com/@club.dramatic" target="_blank" rel="noopener noreferrer">
+          <div class="number">03</div>
+          <div class="link-content">
+            <strong>TikTok</strong>
+            <small>Proceso creativo</small>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="link" href="https://www.facebook.com/club.dramatic" target="_blank" rel="noopener noreferrer">
+          <div class="number">04</div>
+          <div class="link-content">
+            <strong>Facebook</strong>
+            <small>Comunidad</small>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+
+      <div class="footer">© Dramatic</div>
+    </section>
   </main>
 </body>
 
